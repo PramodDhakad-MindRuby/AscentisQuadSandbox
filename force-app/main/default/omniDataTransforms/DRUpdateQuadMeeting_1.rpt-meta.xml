@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;QuadRecordId&quot; : &quot;a0cWB0000047wRZYAY&quot;,
+  &quot;CF01&quot; : &quot;ans1&quot;,
+  &quot;CF02&quot; : &quot;ans2&quot;,
+  &quot;CF03&quot; : &quot;ans3&quot;
+}</expectedInputJson>
+    <fieldLevelSecurityEnabled>true</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <isManagedUsingStdDesigner>true</isManagedUsingStdDesigner>
+    <name>DRUpdateQuadMeeting</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>e787b9e9-415a-4ab6-9da5-d669ef8be3af</globalKey>
+        <inputFieldName>QuadRecordId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRUpdateQuadMeeting</name>
+        <omniDataTransformation>0kdWB000000ONuj</omniDataTransformation>
+        <omniDataTransformationId>0kdWB000000ONuj</omniDataTransformationId>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>Quad_Meeting__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>8597a585-4f43-4114-887e-7373064de39a</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>DRUpdateQuadMeeting</name>
+        <omniDataTransformation>0kdWB000000ONoH</omniDataTransformation>
+        <omniDataTransformationId>0kdWB000000ONoH</omniDataTransformationId>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>Quad_Meeting__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>c9ef5e69-811b-420a-81ea-41e447e81ff1</globalKey>
+        <inputFieldName>CF03</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRUpdateQuadMeeting</name>
+        <omniDataTransformation>0kdWB000000ONt7</omniDataTransformation>
+        <omniDataTransformationId>0kdWB000000ONt7</omniDataTransformationId>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>CF_03__c</outputFieldName>
+        <outputObjectName>Quad_Meeting__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>81111a7a-a93f-47c7-a378-70ab52eaf3c4</globalKey>
+        <inputFieldName>CF01</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRUpdateQuadMeeting</name>
+        <omniDataTransformation>0kdWB000000ONpt</omniDataTransformation>
+        <omniDataTransformationId>0kdWB000000ONpt</omniDataTransformationId>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>CF_01__c</outputFieldName>
+        <outputObjectName>Quad_Meeting__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>17589f2f-7891-49bd-ad19-861fc0787cc8</globalKey>
+        <inputFieldName>CF02</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRUpdateQuadMeeting</name>
+        <omniDataTransformation>0kdWB000000ONrV</omniDataTransformation>
+        <omniDataTransformationId>0kdWB000000ONrV</omniDataTransformationId>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>CF_02__c</outputFieldName>
+        <outputObjectName>Quad_Meeting__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>SObject</outputType>
+    <previewJsonData>{
+  &quot;QuadRecordId&quot; : &quot;&quot;,
+  &quot;CF01&quot; : &quot;ans1&quot;,
+  &quot;CF02&quot; : &quot;ans2&quot;,
+  &quot;CF03&quot; : &quot;ans3&quot;
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Load</type>
+    <uniqueName>DRUpdateQuadMeeting_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>
