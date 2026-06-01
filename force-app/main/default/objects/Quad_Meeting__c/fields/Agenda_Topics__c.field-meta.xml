@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Agenda_Topics__c</fullName>
+    <description>Meeting agenda content with discussion items for this client meeting</description>
+    <inlineHelpText>Meeting agenda content with discussion items for this client meeting</inlineHelpText>
+    <label>Agenda Topics</label>
+    <length>32768</length>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

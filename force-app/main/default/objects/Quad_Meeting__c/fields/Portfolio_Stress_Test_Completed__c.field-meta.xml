@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Portfolio_Stress_Test_Completed__c</fullName>
+    <description>Date the portfolio stress test was completed using Stratifi to model adverse market conditions.</description>
+    <inlineHelpText>Date the portfolio stress test was completed using Stratifi to model adverse market conditions.</inlineHelpText>
+    <label>Portfolio Stress Test Completed</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

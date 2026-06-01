@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trustee_Designations_Reviewed__c</fullName>
+    <description>Date all trustee appointments were reviewed for appropriateness.</description>
+    <inlineHelpText>Date all trustee appointments were reviewed for appropriateness.</inlineHelpText>
+    <label>Trustee Designations Reviewed</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

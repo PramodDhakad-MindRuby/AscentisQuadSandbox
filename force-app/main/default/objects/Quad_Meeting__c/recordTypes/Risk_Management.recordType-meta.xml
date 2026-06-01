@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Risk_Management</fullName>
+    <active>true</active>
+    <label>Risk Management</label>
+    <picklistValues>
+        <picklist>Incomplete_Reason__c</picklist>
+        <values>
+            <fullName>Advisor Capacity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Churned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Meeting_Status__c</picklist>
+        <values>
+            <fullName>Archived</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Need to Reschedule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Need to Schedule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Planning</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Scheduled</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Onboarding_Status__c</picklist>
+        <values>
+            <fullName>Onboarding Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Onboarding in Process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ready to Onboard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Timeframe__c</picklist>
+        <values>
+            <fullName>1H</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2H</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annual</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Q1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Q2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Q3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Q4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

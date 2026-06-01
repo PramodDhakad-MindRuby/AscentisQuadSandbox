@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>X1031_1035_Exchange_Strategy_Reviewed__c</fullName>
+    <description>Date that 1031 (real estate) and 1035 (insurance) exchange strategies were reviewed.</description>
+    <inlineHelpText>Date that 1031 (real estate) and 1035 (insurance) exchange strategies were reviewed.</inlineHelpText>
+    <label>1031/1035 Exchange Strategy Reviewed</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Contracts_Review_Completed__c</fullName>
+    <description>Date business contracts were reviewed and updated with outside counsel.</description>
+    <inlineHelpText>Date business contracts were reviewed and updated with outside counsel.</inlineHelpText>
+    <label>Business Contracts Review Completed</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

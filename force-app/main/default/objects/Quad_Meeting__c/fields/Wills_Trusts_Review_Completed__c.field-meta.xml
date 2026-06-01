@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Wills_Trusts_Review_Completed__c</fullName>
+    <description>Date all wills and trust documents were reviewed for currency and accuracy.</description>
+    <inlineHelpText>Date all wills and trust documents were reviewed for currency and accuracy.</inlineHelpText>
+    <label>Wills &amp; Trusts Review Completed</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

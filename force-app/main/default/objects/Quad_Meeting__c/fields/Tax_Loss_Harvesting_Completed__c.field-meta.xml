@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tax_Loss_Harvesting_Completed__c</fullName>
+    <description>Date tax loss harvesting opportunities were identified and executed.</description>
+    <inlineHelpText>Date tax loss harvesting opportunities were identified and executed.</inlineHelpText>
+    <label>Tax Loss Harvesting Completed</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>
