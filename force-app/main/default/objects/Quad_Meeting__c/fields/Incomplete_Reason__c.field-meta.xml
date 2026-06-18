@@ -32,6 +32,11 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>Updated by Automation</fullName>
+                <default>false</default>
+                <label>Updated by Automation</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

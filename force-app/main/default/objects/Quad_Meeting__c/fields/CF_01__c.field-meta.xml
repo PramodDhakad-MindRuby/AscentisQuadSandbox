@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CF_01__c</fullName>
-    <label>CF-01</label>
+    <description>What are your primary financial goals for the upcoming year? Are there any major life events we should be aware of?</description>
+    <inlineHelpText>What are your primary financial goals for the upcoming year? Are there any major life events we should be aware of?
+Examples: retirement, home purchase, college funding, business sale, inheritance, new baby, marriage, etc.</inlineHelpText>
+    <label>Financial Goals &amp; Life Events</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

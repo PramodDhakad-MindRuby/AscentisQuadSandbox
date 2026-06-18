@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CF_03__c</fullName>
-    <label>CF-03</label>
+    <description>Do you expect any large one-time purchases or expenditures this year?</description>
+    <inlineHelpText>Do you expect any large one-time purchases or expenditures this year?
+Examples: vacation, vehicle, equipment, real estate, home renovation, wedding, etc. Helps with cash flow forecasting.</inlineHelpText>
+    <label>Upcoming Large Expenditures</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>

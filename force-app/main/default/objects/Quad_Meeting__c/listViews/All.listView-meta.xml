@@ -6,7 +6,6 @@
     <columns>Meeting_Date__c</columns>
     <columns>Target_Meeting_Date__c</columns>
     <columns>OwnerId__c</columns>
-    <columns>Agenda_Sent__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

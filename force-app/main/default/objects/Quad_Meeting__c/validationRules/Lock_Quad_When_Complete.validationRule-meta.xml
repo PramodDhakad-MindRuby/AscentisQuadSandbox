@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Quad_When_Complete</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    ISPICKVAL(PRIORVALUE(Meeting_Status__c), &quot;Complete&quot;),
+    NOT($Profile.Name = &quot;System Administrator&quot;)
+)</errorConditionFormula>
+    <errorMessage>You cannot edit this record after the Quad Status is Complete.</errorMessage>
+</ValidationRule>

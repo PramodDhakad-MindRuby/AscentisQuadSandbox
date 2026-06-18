@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EP_01__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Would you like to make any changes to your current Estate Plan?</description>
+    <inlineHelpText>Would you like to make any changes to your current Estate Plan?
+Select Yes or No. If yes, a text box will appear for you to describe the changes you&apos;re considering.</inlineHelpText>
+    <label>Current Estate Plan Changes Requested</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

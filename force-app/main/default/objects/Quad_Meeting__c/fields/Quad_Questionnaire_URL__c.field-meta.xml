@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quad_Questionnaire_URL__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(
+  &quot;https://ascentisco--quad.sandbox.my.site.com/quadMeetingQuestionnaire/s/&quot; &amp; 
+  
+  CASE(RecordType.DeveloperName, 
+    &quot;Cash_Flow&quot;, &quot;cash-flow&quot;,
+    &quot;Risk_Management&quot;, &quot;risk-management&quot;,
+    &quot;Estate_Planning&quot;, &quot;estate-planning&quot;,
+    &quot;Tax_Planning&quot;, &quot;tax-planning&quot;,
+    &quot;Introductory_Quad&quot;, &quot;intro-quad&quot;,
+    &quot;B_Segment_1H&quot;, &quot;b-segment-1h&quot;,
+    &quot;B_Segment_2H&quot;, &quot;b-segment-2h&quot;,
+    &quot;C_Segment&quot;, &quot;c-segment&quot;,
+    &quot;default-path&quot; 
+  ) &amp; 
+  
+  &quot;?recordId=&quot; &amp; Id, 
+  
+  &quot;Open &quot; &amp; RecordType.Name, 
+  &quot;_blank&quot;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Quad Questionnaire URL</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

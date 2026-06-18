@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Meeting_Held_Requirements</fullName>
+    <active>true</active>
+    <description>Prevents users from setting Meeting Status to &quot;Meeting Held&quot; unless Meeting Date is populated, is a past date, and Client Questionnaire is completed.</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(Meeting_Status__c, &quot;Meeting Held&quot;),
+    OR(
+        ISBLANK(Target_Meeting_Date__c),
+        Target_Meeting_Date__c &gt; TODAY(),
+        NOT(Client_Questionnaire_Completed__c)
+    )
+)</errorConditionFormula>
+    <errorMessage>To set Meeting Status to &quot;Meeting Held&quot;, Meeting Date must be populated, be a past date, and the Client Questionnaire must be completed.</errorMessage>
+</ValidationRule>

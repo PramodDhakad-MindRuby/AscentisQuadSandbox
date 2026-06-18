@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Verbal_Completion_Requires_Notes</fullName>
+    <active>true</active>
+    <description>This enforces the required notes when marking Completed Verbally.</description>
+    <errorConditionFormula>AND(
+  Questionnaire_Completed_Verbally__c = TRUE,
+  ISBLANK(Verbal_Completion_Notes__c)
+)</errorConditionFormula>
+    <errorDisplayField>Verbal_Completion_Notes__c</errorDisplayField>
+    <errorMessage>Verbal Completion Notes are required when marking the questionnaire as Completed Verbally.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Client_Questionnaire_Completed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field is checked automatically once the client submits the questionnaire response. It is used to track the completion status of the Client Questionnaire process.</description>
+    <inlineHelpText>This field is checked automatically once the client submits the questionnaire response. It is used to track the completion status of the Client Questionnaire process.</inlineHelpText>
+    <label>Client Questionnaire Completed</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

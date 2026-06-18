@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Enforce_Quad_Meeting_Status_Transitions</fullName>
+    <active>true</active>
+    <description>This validation rule enforces that Quad Meeting status transitions must follow the defined process by allowing users to move forward only one stage at a time, restricting backward movement except through &quot;Need to Reschedule&quot;.</description>
+    <errorConditionFormula>AND(
+  ISCHANGED(Meeting_Status__c),
+  NOT(
+    ISPICKVAL(Meeting_Status__c, &quot;Archived&quot;)
+  ),
+  NOT(
+    OR(
+      AND(
+        ISPICKVAL(PRIORVALUE(Meeting_Status__c), &quot;Need to Schedule&quot;),
+        ISPICKVAL(Meeting_Status__c, &quot;Scheduled&quot;)
+      ),
+      AND(
+        ISPICKVAL(PRIORVALUE(Meeting_Status__c), &quot;Scheduled&quot;),
+        ISPICKVAL(Meeting_Status__c, &quot;Planning&quot;)
+      ),
+      AND(
+        ISPICKVAL(PRIORVALUE(Meeting_Status__c), &quot;Planning&quot;),
+        ISPICKVAL(Meeting_Status__c, &quot;Meeting Held&quot;)
+      ),
+      AND(
+        ISPICKVAL(PRIORVALUE(Meeting_Status__c), &quot;Meeting Held&quot;),
+        ISPICKVAL(Meeting_Status__c, &quot;Complete&quot;)
+      ),
+      AND(
+        ISPICKVAL(Meeting_Status__c, &quot;Need to Reschedule&quot;),
+        NOT(ISPICKVAL(PRIORVALUE(Meeting_Status__c), &quot;Need to Reschedule&quot;))
+      ),
+      AND(
+        ISPICKVAL(PRIORVALUE(Meeting_Status__c), &quot;Need to Reschedule&quot;),
+        OR(
+          ISPICKVAL(Meeting_Status__c, &quot;Need to Schedule&quot;),
+          ISPICKVAL(Meeting_Status__c, &quot;Planning&quot;)
+        )
+      )
+    )
+  )
+)</errorConditionFormula>
+    <errorMessage>Invalid status transition. You must follow the meeting process step-by-step. Backward movement is only allowed via &quot;Need to Reschedule&quot;.</errorMessage>
+</ValidationRule>

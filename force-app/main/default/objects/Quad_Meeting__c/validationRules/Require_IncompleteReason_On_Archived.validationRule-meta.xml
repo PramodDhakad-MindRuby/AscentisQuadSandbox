@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Require_IncompleteReason_On_Archived</fullName>
+    <active>true</active>
+    <description>When a user manually sets Meeting_Status__c to &apos;Archived&apos;, they must provide an Incomplete Reason.</description>
+    <errorConditionFormula>AND(
+    ISPICKVAL(Meeting_Status__c, &apos;Archived&apos;),
+    ISCHANGED(Meeting_Status__c),
+    ISPICKVAL(Incomplete_Reason__c, &apos;&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>Incomplete_Reason__c</errorDisplayField>
+    <errorMessage>An Incomplete Reason is required when archiving a Quad Meeting.</errorMessage>
+</ValidationRule>

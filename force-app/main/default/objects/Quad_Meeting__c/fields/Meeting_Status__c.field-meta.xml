@@ -11,14 +11,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Need to Reschedule</fullName>
-                <default>false</default>
-                <label>Need to Reschedule</label>
-            </value>
-            <value>
-                <fullName>Planning</fullName>
+                <fullName>Need to Schedule</fullName>
                 <default>true</default>
-                <label>Planning</label>
+                <label>Need to Schedule</label>
             </value>
             <value>
                 <fullName>Scheduled</fullName>
@@ -26,14 +21,24 @@
                 <label>Scheduled</label>
             </value>
             <value>
+                <fullName>Planning</fullName>
+                <default>false</default>
+                <label>Planning</label>
+            </value>
+            <value>
+                <fullName>Need to Reschedule</fullName>
+                <default>false</default>
+                <label>Need to Reschedule</label>
+            </value>
+            <value>
+                <fullName>Meeting Held</fullName>
+                <default>false</default>
+                <label>Meeting Held</label>
+            </value>
+            <value>
                 <fullName>Complete</fullName>
                 <default>false</default>
                 <label>Complete</label>
-            </value>
-            <value>
-                <fullName>Need to Schedule</fullName>
-                <default>false</default>
-                <label>Need to Schedule</label>
             </value>
             <value>
                 <fullName>Archived</fullName>
