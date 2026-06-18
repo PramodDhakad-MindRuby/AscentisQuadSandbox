@@ -5,10 +5,12 @@
     <deletedOnSuccess>false</deletedOnSuccess>
     <errorIgnored>false</errorIgnored>
     <expectedInputJson>{
-  &quot;QuadRecordId&quot; : &quot;a0cWB0000047wRZYAY&quot;,
-  &quot;CF01&quot; : &quot;ans1&quot;,
-  &quot;CF02&quot; : &quot;ans2&quot;,
-  &quot;CF03&quot; : &quot;ans3&quot;
+  &quot;Step1&quot; : {
+    &quot;CF01&quot; : &quot;Value A&quot;,
+    &quot;CF02&quot; : &quot;Value B&quot;,
+    &quot;CF03&quot; : &quot;Value C&quot;
+  },
+  &quot;QuadRecordId&quot; : &quot;a0cWB0000047w8DYAQ&quot;
 }</expectedInputJson>
     <fieldLevelSecurityEnabled>true</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
@@ -53,7 +55,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>c9ef5e69-811b-420a-81ea-41e447e81ff1</globalKey>
-        <inputFieldName>CF03</inputFieldName>
+        <inputFieldName>Step1.CF03</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRUpdateQuadMeeting</name>
@@ -70,7 +72,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>81111a7a-a93f-47c7-a378-70ab52eaf3c4</globalKey>
-        <inputFieldName>CF01</inputFieldName>
+        <inputFieldName>Step1.CF01</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRUpdateQuadMeeting</name>
@@ -87,7 +89,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>17589f2f-7891-49bd-ad19-861fc0787cc8</globalKey>
-        <inputFieldName>CF02</inputFieldName>
+        <inputFieldName>Step1.CF02</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRUpdateQuadMeeting</name>
@@ -102,10 +104,12 @@
     </omniDataTransformItem>
     <outputType>SObject</outputType>
     <previewJsonData>{
-  &quot;QuadRecordId&quot; : &quot;&quot;,
-  &quot;CF01&quot; : &quot;ans1&quot;,
-  &quot;CF02&quot; : &quot;ans2&quot;,
-  &quot;CF03&quot; : &quot;ans3&quot;
+  &quot;Step1&quot; : {
+    &quot;CF01&quot; : &quot;Value A&quot;,
+    &quot;CF02&quot; : &quot;Value B&quot;,
+    &quot;CF03&quot; : &quot;Value C&quot;
+  },
+  &quot;QuadRecordId&quot; : &quot;a0cWB0000047w8DYAQ&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

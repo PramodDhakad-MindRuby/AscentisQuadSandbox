@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isManagedUsingStdDesigner>true</isManagedUsingStdDesigner>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
@@ -15,11 +15,11 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CF01</name>
+            <name>C1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;What are your primary financial goals for the upcoming year? Are there any major life events we should be aware of?&quot;,
+  &quot;label&quot; : &quot;01) What are your primary financial goals for the upcoming year? Are there any major life events we should be aware of?&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
@@ -43,18 +43,18 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>1.0</sequenceNumber>
+            <sequenceNumber>0.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CF02</name>
+            <name>C2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Have you started receiving any new sources of income since our last meeting?&quot;,
+  &quot;label&quot; : &quot;02) Have you started receiving any new sources of income since our last meeting?&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
@@ -78,18 +78,18 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>3.0</sequenceNumber>
+            <sequenceNumber>1.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CF03</name>
+            <name>C3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Do you expect any large one-time purchases or expenditures this year?&quot;,
+  &quot;label&quot; : &quot;03) Do you expect any large one-time purchases or expenditures this year?&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
@@ -113,7 +113,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>5.0</sequenceNumber>
+            <sequenceNumber>2.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -125,24 +125,24 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Please upload your most recent pay stub.&quot;,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Used to verify current income, withholdings, and employer benefit elections.&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;uploadContDoc&quot; : true,
-  &quot;contentParentId&quot; : [ ],
-  &quot;extraPayload&quot; : { },
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;guestFileUploader&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;help-text&quot;,
+    &quot;source&quot; : &quot;Used to verify current income, withholdings, and employer benefit elections.&quot;
+  }, {
+    &quot;name&quot; : &quot;custom-heading&quot;,
+    &quot;source&quot; : &quot;04) Please upload your most recent pay stub.&quot;
+  }, {
+    &quot;name&quot; : &quot;max-files&quot;,
+    &quot;source&quot; : &quot;5&quot;
+  } ]
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
-            <type>File</type>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -153,24 +153,24 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Please upload your most recent Social Security statement.&quot;,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Available at ssa.gov/myaccount. Used for retirement income projections and benefit optimization.&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;uploadContDoc&quot; : true,
-  &quot;contentParentId&quot; : [ ],
-  &quot;extraPayload&quot; : { },
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;guestFileUploader&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;help-text&quot;,
+    &quot;source&quot; : &quot;Available at ssa.gov/myaccount. Used for retirement income projections and benefit optimization.&quot;
+  }, {
+    &quot;name&quot; : &quot;custom-heading&quot;,
+    &quot;source&quot; : &quot;05) Please upload your most recent Social Security statement.&quot;
+  }, {
+    &quot;name&quot; : &quot;max-files&quot;,
+    &quot;source&quot; : &quot;1&quot;
+  } ]
 }</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
-            <type>File</type>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -181,24 +181,24 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Please upload your updated Lifestyle Expenditures spreadsheet.&quot;,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;This is the household budget/spending worksheet provided by your advisor. If you need a blank copy, please let us know.&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;uploadContDoc&quot; : true,
-  &quot;contentParentId&quot; : [ ],
-  &quot;extraPayload&quot; : { },
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;guestFileUploader&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;help-text&quot;,
+    &quot;source&quot; : &quot;This is the household budget/spending worksheet provided by your advisor. If you need a blank copy, please let us know.&quot;
+  }, {
+    &quot;name&quot; : &quot;custom-heading&quot;,
+    &quot;source&quot; : &quot;06) Please upload your updated Lifestyle Expenditures spreadsheet.&quot;
+  }, {
+    &quot;name&quot; : &quot;max-files&quot;,
+    &quot;source&quot; : &quot;1&quot;
+  } ]
 }</propertySetConfig>
-            <sequenceNumber>11.0</sequenceNumber>
-            <type>File</type>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -209,24 +209,24 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Please upload your most recent tax return(s) — both personal and business, if applicable.&quot;,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Federal returns preferred. Used for income verification, deduction review, and tax planning opportunities.&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;uploadContDoc&quot; : true,
-  &quot;contentParentId&quot; : [ ],
-  &quot;extraPayload&quot; : { },
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;guestFileUploader&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;help-text&quot;,
+    &quot;source&quot; : &quot;Federal returns preferred. Used for income verification, deduction review, and tax planning opportunities.&quot;
+  }, {
+    &quot;name&quot; : &quot;custom-heading&quot;,
+    &quot;source&quot; : &quot;07) Please upload your most recent tax return(s) — both personal and business, if applicable.&quot;
+  }, {
+    &quot;name&quot; : &quot;max-files&quot;,
+    &quot;source&quot; : &quot;5&quot;
+  } ]
 }</propertySetConfig>
-            <sequenceNumber>13.0</sequenceNumber>
-            <type>File</type>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -237,24 +237,24 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;If applicable, please upload your most recent business financial statements.&quot;,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Includes P&amp;L, balance sheet, and cash flow statements. Used for business income verification and planning.&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;uploadContDoc&quot; : true,
-  &quot;contentParentId&quot; : [ ],
-  &quot;extraPayload&quot; : { },
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;guestFileUploader&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;help-text&quot;,
+    &quot;source&quot; : &quot;Includes P&amp;L, balance sheet, and cash flow statements. Used for business income verification and planning.&quot;
+  }, {
+    &quot;name&quot; : &quot;custom-heading&quot;,
+    &quot;source&quot; : &quot;08) If applicable, please upload your most recent business financial statements.&quot;
+  }, {
+    &quot;name&quot; : &quot;max-files&quot;,
+    &quot;source&quot; : &quot;5&quot;
+  } ]
 }</propertySetConfig>
-            <sequenceNumber>15.0</sequenceNumber>
-            <type>File</type>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -265,24 +265,24 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Please upload your most recent qualified retirement account statements.&quot;,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Includes 401(k), IRA, Roth IRA, SEP-IRA, 403(b), and similar accounts. Statements from the most recent quarter preferred.&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;uploadContDoc&quot; : true,
-  &quot;contentParentId&quot; : [ ],
-  &quot;extraPayload&quot; : { },
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;guestFileUploader&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;help-text&quot;,
+    &quot;source&quot; : &quot;Includes 401(k), IRA, Roth IRA, SEP-IRA, 403(b), and similar accounts. Statements from the most recent quarter preferred.&quot;
+  }, {
+    &quot;name&quot; : &quot;custom-heading&quot;,
+    &quot;source&quot; : &quot;09) Please upload your most recent qualified retirement account statements.&quot;
+  }, {
+    &quot;name&quot; : &quot;max-files&quot;,
+    &quot;source&quot; : &quot;5&quot;
+  } ]
 }</propertySetConfig>
-            <sequenceNumber>17.0</sequenceNumber>
-            <type>File</type>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -293,24 +293,24 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Please upload your most recent taxable and outside account statements.&quot;,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Includes individual brokerage, trust accounts, business investment accounts, annuities, and any assets not held at Ascentis.&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;uploadContDoc&quot; : true,
-  &quot;contentParentId&quot; : [ ],
-  &quot;extraPayload&quot; : { },
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;guestFileUploader&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;help-text&quot;,
+    &quot;source&quot; : &quot;Includes individual brokerage, trust accounts, business investment accounts, annuities, and any assets not held at Ascentis.&quot;
+  }, {
+    &quot;name&quot; : &quot;custom-heading&quot;,
+    &quot;source&quot; : &quot;10) Please upload your most recent taxable and outside account statements.&quot;
+  }, {
+    &quot;name&quot; : &quot;max-files&quot;,
+    &quot;source&quot; : &quot;5&quot;
+  } ]
 }</propertySetConfig>
-            <sequenceNumber>19.0</sequenceNumber>
-            <type>File</type>
+            <sequenceNumber>9.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -321,223 +321,24 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Do you have any additional documents you would like to add to your secure vault?&quot;,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;The vault is your secure document storage within our platform. Upload any items you&apos;d like us to have on file.&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;uploadContDoc&quot; : true,
-  &quot;contentParentId&quot; : [ ],
-  &quot;extraPayload&quot; : { },
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
-}</propertySetConfig>
-            <sequenceNumber>21.0</sequenceNumber>
-            <type>File</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock1</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-01&lt;/p&gt;&quot;,
-  &quot;show&quot; : null,
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>0.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock10</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-10&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>18.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock11</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-11&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>20.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock2</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-02&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>2.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock3</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-03&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>4.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock4</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-04&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>6.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock5</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-05&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock6</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-06&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;guestFileUploader&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;help-text&quot;,
+    &quot;source&quot; : &quot;The vault is your secure document storage within our platform. Upload any items you&apos;d like us to have on file.&quot;
+  }, {
+    &quot;name&quot; : &quot;custom-heading&quot;,
+    &quot;source&quot; : &quot;11) Do you have any additional documents you would like to add to your secure vault?&quot;
+  }, {
+    &quot;name&quot; : &quot;max-files&quot;,
+    &quot;source&quot; : &quot;5&quot;
+  } ]
 }</propertySetConfig>
             <sequenceNumber>10.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock7</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-07&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>12.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock8</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-08&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>14.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock9</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;CF-09&lt;/p&gt;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>16.0</sequenceNumber>
-            <type>Text Block</type>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -595,8 +396,91 @@
         <sequenceNumber>0.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>IntegrationProcedureAction1</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;IntegrationProcedureAction1&quot;,
+  &quot;integrationProcedureKey&quot; : &quot;Apex_Update&quot;,
+  &quot;useContinuation&quot; : false,
+  &quot;remoteOptions&quot; : {
+    &quot;preTransformBundle&quot; : &quot;&quot;,
+    &quot;postTransformBundle&quot; : &quot;&quot;,
+    &quot;useFuture&quot; : false,
+    &quot;chainable&quot; : false
+  },
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;preTransformBundle&quot; : &quot;&quot;,
+  &quot;postTransformBundle&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;extraPayload&quot; : { },
+  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
+  &quot;postMessage&quot; : &quot;✅ Record updated successfully!&quot;,
+  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
+  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
+  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
+  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;redirectPageName&quot; : &quot;&quot;,
+  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
+  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
+  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
+  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;svgSprite&quot; : &quot;&quot;,
+  &quot;svgIcon&quot; : &quot;&quot;,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;enableDefaultAbort&quot; : false,
+  &quot;enableActionMessage&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;,
+  &quot;toastComplete&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
+        <type>Integration Procedure Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>SetValues1</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;SetValues1&quot;,
+  &quot;elementValueMap&quot; : {
+    &quot;isFinal&quot; : &quot;=IF(ISBLANK(%isFinalModule%), true, %isFinalModule%)&quot;
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>1.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
-    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;accessibilityToggle&quot;:true,&quot;allowSaveForLater&quot;:true,&quot;allowSaveChanges&quot;:false,&quot;autoSaveChanges&quot;:false,&quot;saveNameTemplate&quot;:null,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%ContextId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:false,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;right&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;}</propertySetConfig>
+    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;accessibilityToggle&quot;:true,&quot;allowSaveForLater&quot;:true,&quot;allowSaveChanges&quot;:false,&quot;autoSaveChanges&quot;:false,&quot;saveNameTemplate&quot;:null,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%ContextId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:true,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;LedgerNewportTheme&quot;,&quot;lightning&quot;:&quot;&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;top&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;}</propertySetConfig>
     <subType>CF</subType>
     <type>QuadMeeting</type>
     <uniqueName>QuadMeeting_CF_English_1</uniqueName>

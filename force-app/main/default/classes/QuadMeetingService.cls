@@ -82,6 +82,90 @@ public with sharing class QuadMeetingService {
         };
 
     // =========================================================================
+    // RECORD TYPE DEV NAME → CUSTOM METADATA KEY
+    // Maps actual RT DeveloperName values to the Record_Type_Dev_Name__c values
+    // stored in Quad_Agenda_Template__mdt records.
+    // =========================================================================
+    @TestVisible
+    private static final Map<String, String> RT_DEV_NAME_TO_CMT_KEY =
+        new Map<String, String>{
+            RT_CASH_FLOW        => 'RT_CASH_FLOW',
+            RT_RISK_MANAGEMENT  => 'RT_RISK_MANAGEMENT',
+            RT_ESTATE_PLANNING  => 'RT_ESTATE_PLANNING',
+            RT_TAX_PLANNING     => 'RT_TAX_PLANNING',
+            RT_B_SEGMENT_1H     => 'RT_B_SEGMENT_1H',
+            RT_B_SEGMENT_2H     => 'RT_B_SEGMENT_2H',
+            RT_C_SEGMENT        => 'RT_C_SEGMENT',
+            RT_INTRODUCTORY     => 'RT_INTRODUCTORY'
+        };
+
+    // =========================================================================
+    // RECORD TYPE → EXPIRATION MONTH (last month of the quarter/period)
+    // Q1 (Cash Flow)         → Mar 31  (month 3,  day 31)
+    // Q2 (Risk Mgmt) / H1   → Jun 30  (month 6,  day 30)
+    // Q3 (Estate Planning)   → Sep 30  (month 9,  day 30)
+    // Q4 (Tax Planning) / H2 / C / Intro → Dec 31 (month 12, day 31)
+    // =========================================================================
+    @TestVisible
+    private static final Map<String, Integer> RT_EXPIRATION_MONTH =
+        new Map<String, Integer>{
+            RT_CASH_FLOW       => 3,
+            RT_RISK_MANAGEMENT => 6,
+            RT_ESTATE_PLANNING => 9,
+            RT_TAX_PLANNING    => 12,
+            RT_B_SEGMENT_1H    => 6,
+            RT_B_SEGMENT_2H    => 12,
+            RT_C_SEGMENT       => 12,
+            RT_INTRODUCTORY    => 12
+        };
+
+    // =========================================================================
+    // RECORD TYPE → TARGET MEETING MONTH (day is always 15)
+    // Annual:   use fixed month from this map
+    // Mid-year: RT_INTRODUCTORY → Today + 15 days (handled in buildMeeting)
+    //           All others      → use fixed month from this map
+    // Q1 / H1 / C  → Jan 15   (month 1)
+    // Q2          → Apr 15   (month 4)
+    // Q3 / H2     → Jul 15   (month 7)
+    // Q4          → Oct 15   (month 10)
+    // =========================================================================
+    @TestVisible
+    private static final Map<String, Integer> RT_TARGET_MEETING_MONTH =
+        new Map<String, Integer>{
+            RT_CASH_FLOW       => 1,   // Q1  → 15 Jan
+            RT_RISK_MANAGEMENT => 4,   // Q2  → 15 Apr
+            RT_ESTATE_PLANNING => 7,   // Q3  → 15 Jul
+            RT_TAX_PLANNING    => 10,  // Q4  → 15 Oct
+            RT_B_SEGMENT_1H    => 1,   // H1  → 15 Jan
+            RT_B_SEGMENT_2H    => 7,   // H2  → 15 Jul
+            RT_C_SEGMENT       => 1    // C   → 15 Jan
+        };
+
+    // =========================================================================
+    // LAZY-LOADED STATIC CACHE
+    // Populated on first access; reused within the same transaction.
+    // =========================================================================
+    @TestVisible
+    private static Map<String, Quad_Agenda_Template__mdt> agendaTemplateCache {
+        get {
+            if (agendaTemplateCache == null) {
+                agendaTemplateCache = new Map<String, Quad_Agenda_Template__mdt>();
+                for (Quad_Agenda_Template__mdt template : [
+                    SELECT Record_Type_Dev_Name__c, Agenda_Template__c, Is_Active__c
+                    FROM   Quad_Agenda_Template__mdt
+                    WHERE  Is_Active__c = true
+                ]) {
+                    if (String.isNotBlank(template.Record_Type_Dev_Name__c)) {
+                        agendaTemplateCache.put(template.Record_Type_Dev_Name__c, template);
+                    }
+                }
+            }
+            return agendaTemplateCache;
+        }
+        set;
+    }
+
+    // =========================================================================
     // PUBLIC ENTRY POINTS
     // =========================================================================
 
@@ -99,14 +183,13 @@ public with sharing class QuadMeetingService {
     public static void createAnnualQuadMeetings(Set<Id> accountIds) {
         if (accountIds == null || accountIds.isEmpty()) return;
 
-        Map<Id, Account>    accountMap    = queryAccounts(accountIds);
-        Set<Id>             skipSet       = getAccountsWithMeetingsThisYear(accountIds);
-        Map<String, Id>     recordTypeMap = getRecordTypeMap();
-        List<Quad_Meeting__c> toInsert    = new List<Quad_Meeting__c>();
+        Map<Id, Account>      accountMap    = queryAccounts(accountIds);
+        Set<Id>               skipSet       = getAccountsWithMeetingsThisYear(accountIds);
+        Map<String, Id>       recordTypeMap = getRecordTypeMap();
+        List<Quad_Meeting__c> toInsert      = new List<Quad_Meeting__c>();
 
         for (Id accId : accountIds) {
             if (skipSet.contains(accId)) {
-                System.debug(LoggingLevel.INFO, 'QuadMeetingService.createAnnualQuadMeetings - Skipping (already processed): ' + accId);
                 continue;
             }
 
@@ -117,7 +200,7 @@ public with sharing class QuadMeetingService {
             if (rtDevNames == null || rtDevNames.isEmpty()) continue;
 
             for (String rtDevName : rtDevNames) {
-                toInsert.add(buildMeeting(accId, recordTypeMap.get(rtDevName), rtDevName, acc.Name, acc.OwnerId));
+                toInsert.add(buildMeeting(accId, recordTypeMap.get(rtDevName), rtDevName, acc.Name, acc.OwnerId, false));
             }
         }
 
@@ -163,7 +246,6 @@ public with sharing class QuadMeetingService {
 
         for (Id accId : accountIds) {
             if (skipSet.contains(accId)) {
-                System.debug(LoggingLevel.INFO, 'QuadMeetingService.createMidYearQuadMeetings - Skipping (already processed): ' + accId);
                 continue;
             }
 
@@ -173,7 +255,7 @@ public with sharing class QuadMeetingService {
             Id      accOwner = (acc != null) ? acc.OwnerId : null;
 
             // Always create Introductory Quad first
-            toInsert.add(buildMeeting(accId, introRtId, RT_INTRODUCTORY, accName, accOwner));
+            toInsert.add(buildMeeting(accId, introRtId, RT_INTRODUCTORY, accName, accOwner, true));
 
             if (String.isBlank(seg)) continue;
 
@@ -183,19 +265,67 @@ public with sharing class QuadMeetingService {
                 // Remaining = quarters whose index >= currentQuarter (i.e. after current quarter)
                 for (Integer i = currentQuarter; i < AAA_A_QUARTERLY_SEQUENCE.size(); i++) {
                     String rtDevName = AAA_A_QUARTERLY_SEQUENCE[i];
-                    toInsert.add(buildMeeting(accId, recordTypeMap.get(rtDevName), rtDevName, accName, accOwner));
+                    toInsert.add(buildMeeting(accId, recordTypeMap.get(rtDevName), rtDevName, accName, accOwner, true));
                 }
             }
             // B – add B-Segment 2H only when onboarding happens in H1 (there is still H2 remaining)
             else if (seg == 'B') {
                 if (isFirstHalf) {
-                    toInsert.add(buildMeeting(accId, recordTypeMap.get(RT_B_SEGMENT_2H), RT_B_SEGMENT_2H, accName, accOwner));
+                    toInsert.add(buildMeeting(accId, recordTypeMap.get(RT_B_SEGMENT_2H), RT_B_SEGMENT_2H, accName, accOwner, true));
                 }
             }
             // C – Intro only; no additional records needed
         }
 
         insertMeetings(toInsert); // No Account field update required for mid-year onboarding
+    }
+
+    // =========================================================================
+    // ARCHIVE EXPIRED MEETINGS
+    // =========================================================================
+
+    /**
+     * @description Bulk-archives Quad Meeting records whose Expiration_Date__c was yesterday.
+     *              Called from QuadMeetingArchiveBatch.execute() on each batch chunk.
+     *
+     *              Updates per record:
+     *                - Meeting_Status__c    → 'Archived'
+     *                - Incomplete_Reason__c  → 'Updated by Automation'
+     *
+     *              Uses partial DML (allOrNothing = false) so one bad record cannot
+     *              block the rest of the chunk. All DML errors are captured via
+     *              ErrorLogService for future troubleshooting.
+     *
+     * @param meetingIds  Set of Quad_Meeting__c Ids to archive (passed from the batch scope).
+     */
+    public static void archiveExpiredMeetings(Set<Id> meetingIds) {
+        if (meetingIds == null || meetingIds.isEmpty()) return;
+
+        List<Quad_Meeting__c> toUpdate = new List<Quad_Meeting__c>();
+        for (Id mId : meetingIds) {
+            toUpdate.add(new Quad_Meeting__c(
+                Id                  = mId,
+                Meeting_Status__c   = 'Archived',
+                Incomplete_Reason__c = 'Updated by Automation'
+            ));
+        }
+
+        List<Database.SaveResult> results   = Database.update(toUpdate, false);
+        List<Error_Log__c>        errorLogs = new List<Error_Log__c>();
+
+        for (Integer i = 0; i < results.size(); i++) {
+            if (!results[i].isSuccess()) {
+                for (Database.Error err : results[i].getErrors()) {
+                    errorLogs.add(ErrorLogService.buildLog(
+                        'QuadMeetingService', 'archiveExpiredMeetings',
+                        'Archive update failed for Quad Meeting: ' + toUpdate[i].Id +
+                        ' | Error: ' + err.getMessage(),
+                        null, ErrorLogService.SEVERITY_ERROR, ErrorLogService.TYPE_APEX
+                    ));
+                }
+            }
+        }
+        ErrorLogService.insertLogs(errorLogs);
     }
 
     // =========================================================================
@@ -215,27 +345,93 @@ public with sharing class QuadMeetingService {
 
     /**
      * @description Builds a Quad_Meeting__c record.
-     *              Naming convention: "FY{year} {period} | {Account Name}"
-     *              e.g.  "FY2026 Q3 | Smith Household"
-     *                    "FY2026 Intro | Smith Household"
+     *              Naming convention: "{year} {period} | {Account Name}"
+     *              e.g.  "2026 Q3 | Smith Household"
+     *                    "2026 Intro | Smith Household"
+     *
+     *              Target_Meeting_Date__c rules:
+     *              Mid-year  – RT_INTRODUCTORY  → Today + 15 days
+     *              Mid-year  – all others       → 15th of the configured target month
+     *              Annual    – all types        → 15th of the configured target month
+     *
+     * @param isMidYear  true  = mid-year onboarding path (createMidYearQuadMeetings)
+     *                   false = annual batch path (createAnnualQuadMeetings)
      */
-    private static Quad_Meeting__c buildMeeting(Id accountId, Id recordTypeId, String rtDevName, String accountName, Id ownerId) {
+    private static Quad_Meeting__c buildMeeting(Id accountId, Id recordTypeId, String rtDevName,
+                                                String accountName, Id ownerId, Boolean isMidYear) {
         String  period      = RECORD_TYPE_NAME_PREFIX.containsKey(rtDevName) ? RECORD_TYPE_NAME_PREFIX.get(rtDevName) : '';
         String  fyLabel     = '' + Date.today().year();
         String  meetingName = fyLabel + ' ' + period + ' | ' + (String.isBlank(accountName) ? '' : accountName);
 
+        Integer expirationMonth = RT_EXPIRATION_MONTH.get(rtDevName);
+        Integer expirationDay   = (expirationMonth != null && (expirationMonth == 3 || expirationMonth == 12)) ? 31 : 30;
+        Date    expirationDate  = (expirationMonth != null)
+            ? Date.newInstance(Date.today().year(), expirationMonth, expirationDay)
+            : null;
+
+        // ── Target Meeting Date ──────────────────────────────────────────────
+        // Mid-year Introductory  → Today + 15 days
+        // Everything else        → 15th of the configured target month
+        // If the resolved date falls on a Saturday or Sunday, roll forward to Monday.
+        Date targetMeetingDate;
+        if (isMidYear && rtDevName == RT_INTRODUCTORY) {
+            targetMeetingDate = adjustForWeekend(Date.today().addDays(15));
+        } else {
+            Integer targetMonth = RT_TARGET_MEETING_MONTH.get(rtDevName);
+            if (targetMonth != null) {
+                targetMeetingDate = adjustForWeekend(Date.newInstance(Date.today().year(), targetMonth, 15));
+            }
+        }
+        // ────────────────────────────────────────────────────────────────────
+
         Quad_Meeting__c meeting = new Quad_Meeting__c(
-            Name              = meetingName,
-            Client_Account__c = accountId,
-            Meeting_Status__c = 'Need to Schedule',
-            Meeting_Date__c   = Date.today(),
-            Goals_for_Year__c = Date.newInstance(Date.today().year(), 1, 1),
-            OwnerId           = ownerId
+            Name                  = meetingName,
+            Client_Account__c     = accountId,
+            Meeting_Status__c     = 'Need to Schedule',
+            Meeting_Date__c       = Date.today(),
+            Goals_for_Year__c     = Date.newInstance(Date.today().year(), 1, 1),
+            Expiration_Date__c    = expirationDate,
+            Target_Meeting_Date__c = targetMeetingDate,
+            OwnerId               = ownerId
         );
         if (recordTypeId != null) {
             meeting.RecordTypeId = recordTypeId;
         }
+        // Populate Agenda_Topics__c from the lazy-loaded static cache
+        String cmtKey = RT_DEV_NAME_TO_CMT_KEY.get(rtDevName);
+        Quad_Agenda_Template__mdt agendaTemplate = (cmtKey != null) ? agendaTemplateCache.get(cmtKey) : null;
+        if (agendaTemplate != null && String.isNotBlank(agendaTemplate.Agenda_Template__c)) {
+            // Extract the long text value
+            String plainTextAgenda = agendaTemplate.Agenda_Template__c;
+    
+            // Replace carriage returns and newlines with HTML line breaks
+            String htmlAgenda = plainTextAgenda.replaceAll('\r\n', '<br/>').replaceAll('\n', '<br/>');
+    
+            // Assign the formatted HTML string to the Rich Text Area field
+            meeting.Agenda_Topics__c = htmlAgenda;
+        }
         return meeting;
+    }
+
+    /**
+     * @description Adjusts a date forward to Monday if it falls on a weekend.
+     *              Saturday → +2 days → Monday
+     *              Sunday   → +1 day  → Monday
+     *              Weekdays → unchanged
+     * @param  d  The candidate date to check.
+     * @return    The same date if it is a weekday, otherwise the following Monday.
+     */
+    @TestVisible
+    private static Date adjustForWeekend(Date d) {
+        // Day-of-week index: daysBetween from a known Sunday (1900-01-07) mod 7
+        // gives 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+        Integer dayOfWeek = Math.mod(Date.newInstance(1900, 1, 7).daysBetween(d), 7);
+        if (dayOfWeek == 0) {        // Sunday  → roll to Monday
+            return d.addDays(1);
+        } else if (dayOfWeek == 6) { // Saturday → roll to Monday
+            return d.addDays(2);
+        }
+        return d;
     }
 
     /**
@@ -303,20 +499,23 @@ public with sharing class QuadMeetingService {
         if (meetings == null || meetings.isEmpty()) return successfulAccountIds;
 
         List<Database.SaveResult> results = Database.insert(meetings, false);
+        List<Error_Log__c> errorLogs = new List<Error_Log__c>();
         for (Integer i = 0; i < results.size(); i++) {
             if (results[i].isSuccess()) {
                 successfulAccountIds.add(meetings[i].Client_Account__c);
             } else {
                 for (Database.Error err : results[i].getErrors()) {
-                    System.debug(LoggingLevel.ERROR,
-                        'QuadMeetingService - Insert failed. ' +
-                        'Account: '       + meetings[i].Client_Account__c +
-                        ' | RecordType: ' + meetings[i].RecordTypeId +
-                        ' | Error: '      + err.getMessage()
-                    );
+                    errorLogs.add(ErrorLogService.buildLog(
+                        'QuadMeetingService', 'insertMeetings',
+                        'Quad Meeting insert failed for Account: ' + meetings[i].Client_Account__c +
+                        ' | RecordTypeId: ' + meetings[i].RecordTypeId +
+                        ' | Error: ' + err.getMessage(),
+                        null, ErrorLogService.SEVERITY_ERROR, ErrorLogService.TYPE_APEX
+                    ));
                 }
             }
         }
+        ErrorLogService.insertLogs(errorLogs);
         return successfulAccountIds;
     }
 
@@ -343,16 +542,19 @@ public with sharing class QuadMeetingService {
         }
 
         List<Database.SaveResult> results = Database.update(accountsToUpdate, false);
+        List<Error_Log__c> errorLogs = new List<Error_Log__c>();
         for (Integer i = 0; i < results.size(); i++) {
             if (!results[i].isSuccess()) {
                 for (Database.Error err : results[i].getErrors()) {
-                    System.debug(LoggingLevel.ERROR,
-                        'QuadMeetingService - Account update failed post Quad creation. ' +
-                        'Account: ' + accountsToUpdate[i].Id +
-                        ' | Error: ' + err.getMessage()
-                    );
+                    errorLogs.add(ErrorLogService.buildLog(
+                        'QuadMeetingService', 'updateAccountsPostQuadCreation',
+                        'Account update failed post Quad Meeting creation for Account: ' +
+                        accountsToUpdate[i].Id + ' | Error: ' + err.getMessage(),
+                        null, ErrorLogService.SEVERITY_ERROR, ErrorLogService.TYPE_APEX
+                    ));
                 }
             }
         }
+        ErrorLogService.insertLogs(errorLogs);
     }
 }

@@ -6,7 +6,7 @@
  *
  *              Query Criteria (OR logic):
  *                - Client_Type__c = 'Wealth Management'
- *                - Quad_Meeting_Creation_Pending__c = true
+ *                - FinServ__Status__c = 'Active'
  *
  *              Intended Execution:
  *                - Scheduled on January 1st each year via the Salesforce Scheduler.
@@ -15,8 +15,8 @@
  *              Scheduling (Anonymous Apex):
  *                // Every Jan 1st at midnight:
  *                System.schedule(
- *                    'Quad Meeting Creation Batch 2027',
- *                    '0 0 0 1 1 ? 2027',
+ *                    'Quad Meeting Creation Batch Annually',
+ *                    '0 0 5 1 1 ? *',
  *                    new QuadMeetingCreationBatch()
  *                );
  *
@@ -45,15 +45,13 @@ public with sharing class QuadMeetingCreationBatch
     /**
      * @description Defines the query scope for the batch.
      *              Fetches Accounts where:
-     *                - Client_Type__c = 'Wealth Management'  OR
-     *                - Quad_Meeting_Creation_Pending__c = true
+     *                - FinServ__Status__c = 'Active'
      */
     public Database.QueryLocator start(Database.BatchableContext bc) {
         return Database.getQueryLocator([
             SELECT Id
             FROM   Account
-            WHERE  Client_Type__c = 'Wealth Management'
-            OR     Quad_Meeting_Creation_Pending__c = true
+            WHERE  Client_Type__c IN ('Wealth Management', 'FP Only') and RecordType.DeveloperName = 'IndustriesHousehold' and Segmentation__c != null
         ]);
     }
 
@@ -76,11 +74,10 @@ public with sharing class QuadMeetingCreationBatch
         try {
             QuadMeetingService.createAnnualQuadMeetings(accountIds);
         } catch (Exception ex) {
-            System.debug(LoggingLevel.ERROR,
-                'QuadMeetingCreationBatch.execute - Unexpected error. ' +
-                'Batch Job Id: ' + bc.getJobId() +
-                ' | Error: '     + ex.getMessage() +
-                ' | Stack: '     + ex.getStackTraceString()
+            ErrorLogService.logError(
+                'QuadMeetingCreationBatch', 'execute',
+                'Annual Quad Meeting creation failed for batch chunk of ' + accountIds.size() +
+                ' Account(s). Batch Job Id: ' + bc.getJobId(), ex
             );
         }
     }
@@ -98,11 +95,11 @@ public with sharing class QuadMeetingCreationBatch
             WHERE  Id = :bc.getJobId()
         ];
 
-        System.debug(LoggingLevel.INFO,
-            'QuadMeetingCreationBatch.finish - ' +
-            'Status: '          + job.Status          +
-            ' | Total Chunks: ' + job.TotalJobItems    +
-            ' | Errors: '       + job.NumberOfErrors   +
+        ErrorLogService.logInfo(
+            'QuadMeetingCreationBatch', 'finish',
+            'QuadMeetingCreationBatch complete. Status: ' + job.Status +
+            ' | Total Chunks: ' + job.TotalJobItems +
+            ' | Errors: '       + job.NumberOfErrors +
             ' | Started: '      + job.CreatedDate
         );
     }

@@ -53,8 +53,31 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>1.0</sequenceNumber>
+        <sequenceNumber>2.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>SetValues1</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;SetValues1&quot;,
+  &quot;elementValueMap&quot; : {
+    &quot;RecordId&quot; : &quot;a0cWB0000047wRZYAY&quot;
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>1.0</sequenceNumber>
+        <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
         <childElements>
@@ -204,7 +227,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;instructionKey&quot; : &quot;&quot;,
   &quot;chartLabel&quot; : null,
-  &quot;allowSaveForLater&quot; : true,
+  &quot;allowSaveForLater&quot; : false,
   &quot;allowSaveChanges&quot; : false,
   &quot;autoSaveChanges&quot; : false,
   &quot;errorMessage&quot; : {

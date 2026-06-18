@@ -18,12 +18,15 @@
  *   // Process a specific set of Account Ids
  *   Set<Id> ids = new Set<Id>{ 'a001000000XXXXX', 'a001000000YYYYY' };
  *   Database.executeBatch(new AccountSegmentationBatch(ids), 200);
+ *   String cronExp = '0 0 3 1 1 ? *';
+ *   String jobName = 'AccountSegmentationBatch - Annual Jan 1st 3AM';
+ *   System.schedule(jobName, cronExp, new AccountSegmentationBatch());
  *
  * @author      Mindruby Team
  * @date        2026-04-21
  */
 public with sharing class AccountSegmentationBatch
-    implements Database.Batchable<SObject>, Database.Stateful {
+    implements Database.Batchable<SObject>, Database.Stateful, Schedulable {
 
     // ─────────────────────────────────────────────────────────────────────────
     // State tracked across chunks
@@ -64,6 +67,50 @@ public with sharing class AccountSegmentationBatch
      */
     public AccountSegmentationBatch(Set<Id> targetAccountIds) {
         this.targetAccountIds = targetAccountIds;
+    }
+
+    // =========================================================================
+    // TEST HOOKS  (callable only from @isTest code)
+    // =========================================================================
+
+    /**
+     * @description Pre-populates failedAccounts/errorMessages so that the
+     *              finish() error-email branch can be exercised in unit tests
+     *              without requiring a genuine DML failure.
+     *
+     *              Why this hook is needed:
+     *              • Prevent_Segmentation_Update_When_Locked fires only when
+     *                PRIORVALUE(Segmentation_Lock_Date__c) is in the current year.
+     *                Those same accounts are caught by isSegmentationLocked() and
+     *                routed to totalLocked before processAccountsWithResult() is
+     *                ever called — making it architecturally impossible to trigger
+     *                the rule for an account that reaches the error path.
+     *              • Phone_Format fires on every DML save, including the test
+     *                setup DML, so an invalid phone cannot be persisted to the DB.
+     *
+     *              Because the class implements Database.Stateful, injected state
+     *              survives serialisation and is visible inside finish().
+     */
+    @TestVisible
+    private void addTestError(Account acc, String errorMsg) {
+        failedAccounts.add(acc);
+        errorMessages.add(
+            'Account: ' + acc.Name + ' (Id: ' + acc.Id + ') - ' + errorMsg
+        );
+    }
+
+    // =========================================================================
+    // SCHEDULABLE INTERFACE
+    // =========================================================================
+
+    /**
+     * @description Schedulable entry point. Fires the batch with a chunk size of 200
+     *              on the configured schedule (1 Jan each year at 03:00 AM).
+     *              Cron: '0 0 3 1 1 ? *'
+     * @param       sc  SchedulableContext provided by the platform.
+     */
+    public void execute(SchedulableContext sc) {
+        Database.executeBatch(new AccountSegmentationBatch(), 200);
     }
 
     // =========================================================================
@@ -128,14 +175,22 @@ public with sharing class AccountSegmentationBatch
             // Pass true → sets Quad_Meeting_Creation_Pending__c = true after segmentation
             // so the annual Quad Meeting creation job can identify records to process.
             Map<Id, String> errorMap = AccountService.processAccountsWithResult(eligible, true);
+            List<Error_Log__c> errorLogs = new List<Error_Log__c>();
             for (Account acc : eligible) {
                 if (errorMap.containsKey(acc.Id)) {
                     failedAccounts.add(acc);
-                    errorMessages.add('Account: ' + acc.Name + ' (Id: ' + acc.Id + ') - ' + errorMap.get(acc.Id));
+                    String errMsg = 'Account: ' + acc.Name + ' (Id: ' + acc.Id + ') - ' + errorMap.get(acc.Id);
+                    errorMessages.add(errMsg);
+                    errorLogs.add(ErrorLogService.buildLog(
+                        'AccountSegmentationBatch', 'execute',
+                        'Segmentation failed for Account ' + acc.Name + ' (Id: ' + acc.Id + '): ' + errorMap.get(acc.Id),
+                        null, ErrorLogService.SEVERITY_ERROR, ErrorLogService.TYPE_BATCH
+                    ));
                 } else {
                     totalUpdated++;
                 }
             }
+            ErrorLogService.insertLogs(errorLogs);
         }
     }
 
@@ -143,18 +198,17 @@ public with sharing class AccountSegmentationBatch
      * @description Called when all chunks are done.  Logs a summary.
      */
     public void finish(Database.BatchableContext bc) {
-        System.debug(
-            LoggingLevel.INFO,
-            'AccountSegmentationBatch complete. ' +
-            'Processed: ' + totalProcessed + ' | ' +
-            'Updated: '   + totalUpdated   + ' | ' +
-            'Locked (skipped): ' + totalLocked
-        );
+        ErrorLogService.logInfo('AccountSegmentationBatch', 'finish',
+            'AccountSegmentationBatch complete. Processed: ' + totalProcessed +
+            ' | Updated: ' + totalUpdated +
+            ' | Locked (skipped): ' + totalLocked +
+            ' | Failed: ' + failedAccounts.size());
 
         // Send summary email if there are failures
         if (!failedAccounts.isEmpty()) {
-            // TODO: Replace with dynamic recipient list from Custom Setting/Metadata
-            List<String> recipients = new List<String>{'setul.sahu@ascentisholdings.com'};
+            // Recipients are stored in Custom Label: AccountSegmentationBatch_ErrorEmailRecipients
+            // Multiple addresses can be comma-separated in the label value.
+            List<String> recipients = Label.AccountSegmentationBatch_ErrorEmailRecipients.split(',');
             String subject = 'Account Segmentation Batch: Errors Detected';
             String body = 'The following Accounts failed segmentation re-evaluation:\n\n';
             for (String msg : errorMessages) {
@@ -164,7 +218,12 @@ public with sharing class AccountSegmentationBatch
             mail.setToAddresses(recipients);
             mail.setSubject(subject);
             mail.setPlainTextBody(body);
-            Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{mail});
+            try {
+                Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{mail});
+            } catch (Exception ex) {
+                ErrorLogService.logError('AccountSegmentationBatch', 'finish',
+                    'Failed to send error summary email. Failed records: ' + failedAccounts.size(), ex);
+            }
         }
     }
 }

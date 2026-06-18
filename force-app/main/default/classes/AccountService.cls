@@ -67,7 +67,13 @@ public with sharing class AccountService {
         }
 
         if (!toUpdate.isEmpty()) {
-            update toUpdate; // bulkified DML
+            try {
+                update toUpdate; // bulkified DML
+            } catch (DmlException ex) {
+                ErrorLogService.logError('AccountService', 'processAccounts',
+                    'DML failed while updating segmentation for ' + toUpdate.size() + ' Account(s) from Id set', ex);
+                throw ex;
+            }
         }
     }
 
@@ -104,7 +110,13 @@ public with sharing class AccountService {
         }
 
         if (!toUpdate.isEmpty()) {
-            update toUpdate;
+            try {
+                update toUpdate;
+            } catch (DmlException ex) {
+                ErrorLogService.logError('AccountService', 'processAccounts',
+                    'DML failed while updating segmentation for ' + toUpdate.size() + ' Account(s) from record list', ex);
+                throw ex;
+            }
         }
     }
 
@@ -114,6 +126,28 @@ public with sharing class AccountService {
      */
     public static void processAccounts(List<Account> accounts) {
         processAccounts(accounts, false);
+    }
+
+
+    public static void fpOnlyprocessAccounts(Set<Id> accountIds) {
+
+        if (accountIds == null || accountIds.isEmpty()) {
+            return;
+        }
+
+        List<Account> accountsToUpdate = [
+            SELECT Id, Segmentation_Lock_Date__c
+            FROM Account
+            WHERE Id IN :accountIds
+        ];
+
+        for (Account acc : accountsToUpdate) {
+            acc.Segmentation_Lock_Date__c = Date.today();
+        }
+
+        if (!accountsToUpdate.isEmpty()) {
+            update accountsToUpdate;
+        }
     }
 
     /**
@@ -139,8 +173,10 @@ public with sharing class AccountService {
                     }
                     toUpdate.add(updated);
                 }
-            } catch (Exception e) {
-                errorMap.put(acc.Id, e.getMessage());
+            } catch (Exception ex) {
+                ErrorLogService.logError('AccountService', 'processAccountsWithResult',
+                    'Segmentation calculation failed for Account Id: ' + acc.Id, ex);
+                errorMap.put(acc.Id, ex.getMessage());
             }
         }
 
@@ -325,7 +361,6 @@ public with sharing class AccountService {
         if (benchmarkCache == null) {
             benchmarkCache = loadBenchmarks();
         }
-        System.debug('Benchmark Cache: ' + benchmarkCache);
         List<Scoring_Benchmark__mdt> result = benchmarkCache.get(fieldType);
         return result != null ? result : new List<Scoring_Benchmark__mdt>();
     }
@@ -374,7 +409,6 @@ public with sharing class AccountService {
             }
             result.get(ft).add(bm);
         }
-        System.debug('Loaded Benchmarks: ---' + result);
         return result;
     }
 
